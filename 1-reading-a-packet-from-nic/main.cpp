@@ -27,7 +27,7 @@
 #include <rte_errno.h>
 #include <rte_ethdev.h>
 #include <rte_mbuf.h>
-#include <ctime>
+#include <chrono>
 
 static volatile sig_atomic_t exit_indicator = 0;
 
@@ -175,7 +175,17 @@ int main(int argc, char **argv)
         for (uint16_t i = 0; i < rx_packets; i++) {
             std::cout << "Packet received. Length: " << received_packats[i]->data_len << std::endl;
             std::time_t currentTime = std::time(nullptr);
-            std::cout << "Current Unix time: " << currentTime << std::endl;
+            // Get the current time point using high_resolution_clock
+            auto currentTimePoint = std::chrono::high_resolution_clock::now();
+        
+            // Cast the time point to nanoseconds since the epoch
+            auto nanoSecondsSinceEpoch = std::chrono::time_point_cast<std::chrono::nanoseconds>(currentTimePoint);
+        
+            // Get the count of nanoseconds since the epoch
+            auto nanoSeconds = nanoSecondsSinceEpoch.time_since_epoch().count();
+        
+            // Print the current time in nanoseconds
+            std::cout << "Current time in nanoseconds since the epoch: " << nanoSeconds << std::endl;
             std::cout << received_packats[i] << std::endl;
         }
 
