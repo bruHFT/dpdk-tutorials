@@ -27,6 +27,7 @@
 #include <rte_errno.h>
 #include <rte_ethdev.h>
 #include <rte_mbuf.h>
+#include <ctime>
 
 static volatile sig_atomic_t exit_indicator = 0;
 
@@ -173,6 +174,8 @@ int main(int argc, char **argv)
 
         for (uint16_t i = 0; i < rx_packets; i++) {
             std::cout << "Packet received. Length: " << received_packats[i]->data_len << std::endl;
+            std::time_t currentTime = std::time(nullptr);
+            std::cout << "Current Unix time: " << currentTime << std::endl;
             std::cout << received_packats[i] << std::endl;
         }
 
