@@ -173,6 +173,7 @@ int main(int argc, char **argv)
 
         for (uint16_t i = 0; i < rx_packets; i++) {
             std::cout << "Packet received. Length: " << received_packats[i]->data_len << std::endl;
+            std::cout << received_packats[i] << std::endl;
         }
 
         // Free all the received packets.
